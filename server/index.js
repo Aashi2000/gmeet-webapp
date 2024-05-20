@@ -25,23 +25,37 @@ app.get(("/api/greeting", (req, res) => {
 }))
 
 
-app.get("/video/token", (req, res) => {
+// app.get("/video/token", (req, res) => {
 
-const identity = req.query.identity;
+// const identity = req.query.identity;
 
-const room = req.query.room;
+// const room = req.query.room;
 
-const token = videoToken(identity, room, config); 
-sendTokenResponse(token, res);
+// const token = videoToken(identity, room, config); 
+// sendTokenResponse(token, res);
 
-})
+// })
 
 app.post("/video/token", (req, res)=>{
+    console.log("req",req)
    const identity = req.query.identity;
    const room = req.query.room;
    const token = videoToken(identity,room,config);
    sendTokenResponse(token,res);
 });
+
+app.get("/video/token", (req, res) => {
+    const identity = req.query.identity;
+    const room = req.query.room;
+    const token = videoToken(identity, room, config);
+    sendTokenResponse(token, res);
+  });
+  app.post("/video/token", (req, res) => {
+    const identity = req.body.identity;
+    const room = req.body.room;
+    const token = videoToken(identity, room, config);
+    sendTokenResponse(token, res);
+  });
 
 const PORT = process.env.PORT || 3001;
 

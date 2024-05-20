@@ -19,30 +19,57 @@ const VideoChat = () => {
         }
     },[currentUser]);
 
-    const handleSubmit = useCallback(async ()=>{
+    // const handleSubmit = useCallback(async ()=>{
+    //     setConnecting(true);
+    //     const data = await fetch("/video/token",{
+    //         method: "POST",
+    //         body: JSON.stringify({
+    //             identity:username,
+    //             room:roomName
+    //         }),
+    //         headers:{
+    //             "Content-Type":"application/json"
+    //         }
+    //     }).then((res)=>res.json());
+    //     Video.connect(data.token,{
+    //         name:roomName
+    //     }).then((room) =>{
+    //         setConnecting(false)
+    //         setRoom(room)
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err);
+    //         setConnecting(false)
+    //     })
+    // },[roomName,username,setConnecting])
+    const handleSubmit = useCallback(async () => {
         setConnecting(true);
-        const data = await fetch("/video/token",{
-            method: "POST",
-            body: JSON.stringify({
-                identity:username,
-                room:roomName
-            }),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        }).then((res)=>res.json());
-        Video.connect(data.token,{
-            name:roomName
-        }).then((room) =>{
-            setConnecting(false)
-            setRoom(room)
-        })
-        .catch((err)=>{
-            console.log(err);
-            setConnecting(false)
-        })
-    },[roomName,username,setConnecting])
+      
 
+        const data = await fetch("/video/token", {
+
+          method: "POST",
+          body: JSON.stringify({
+            identity: username,
+            room: roomName,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((res) => res.json());
+        Video.connect(data.token, {
+          name: roomName,
+        })
+          .then((room) => {
+            setConnecting(false);
+            setRoom(room);
+          })
+          .catch((err) => {
+            console.error(err);
+            setConnecting(false);
+          });
+      }, [roomName, username,setConnecting]);
+     
     const handleLogout=useCallback(()=>{
         setRoom((prevRoom)=>{
             if(prevRoom){

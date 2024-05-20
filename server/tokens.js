@@ -1,4 +1,4 @@
-const AccessToken = twilio.jwt.AccessToken;
+const { AccessToken } = require('twilio').jwt;
 const {VideoGrant}=AccessToken;
 
 const generateToken = config =>{
